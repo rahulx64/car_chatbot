@@ -2,7 +2,7 @@ def car_chatbot():
     print("🤖 Welcome to Car Buying Assistant")
     print("-" * 40)
 
-    # Step 1: Buying intent
+    
     buy = input("Are you looking to buy a car? (yes/no): ").lower()
     if buy != "yes":
         print("No problem! Visit us anytime 😊")
