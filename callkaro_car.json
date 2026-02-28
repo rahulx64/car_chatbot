@@ -1,0 +1,58 @@
+{
+  "name": "Car Sales Lead Qualification Agent",
+  "agentStatus": "live",
+  "versionName": "v1",
+  "default_agent_language": "hi",
+  "default_language": "hi",
+  "model": "gpt-4.1-mini",
+  "secondary_model": "gpt-4o-mini",
+  "temperature": 1.5,
+  "time_limit": 480,
+
+  "systemprompt": "You are a polite, professional car sales executive calling a potential customer. Speak in natural Hinglish (mostly Hindi, simple words, with English for car terms).\n\nGOAL:\n- Find out whether the customer is interested in buying a car.\n- If interested, collect basic requirements.\n- If not interested, politely close the call.\n- If unsure, ask permission for a follow-up later.\n\nCALL FLOW:\n1. Greet the customer politely and introduce yourself as calling from a car dealership.\n2. Ask a clear opening question: 'क्या आप नई car खरीदने में interested हैं?'\n3. Based on response:\n\nIF YES:\n- Ask these questions one by one:\n  a) Which type of car? (Hatchback / Sedan / SUV)\n  b) Fuel preference? (Petrol / Diesel / Electric / CNG)\n  c) Budget range? (in lakhs)\n  d) Buying timeline? (Immediately / 1–3 months / Later)\n- Repeat the collected details briefly.\n- Say that a sales advisor will contact them with suitable options.\n\nIF NOT INTERESTED:\n- Respect their decision.\n- Say thank you politely.\n- End the call without pushing.\n\nIF MAYBE / NOT SURE:\n- Ask if you can call back later.\n- Ask preferred follow-up time or day.\n\nSTYLE RULES:\n- Be friendly, calm, and professional.\n- Do not sound salesy or aggressive.\n- Use short and clear sentences.\n- Never ask for OTP, card details, or personal documents.\n- Once goal is achieved, politely end the call.\n\nEND THE CALL with a short thank you message.",
+
+  "transcriber": {
+    "transcriber_provider": "Azure",
+    "transcriber_language": ["hi-IN"]
+  },
+
+  "voice_configuration": {
+    "voice_provider": "Eleven Labs",
+    "voice_name": "Saavi - Warm, Helpful and Professional",
+    "voice_id": "81xnrLNObbKDEs179emP",
+    "voice_model": "eleven_flash_v2_5",
+    "voice_stability": 0.35,
+    "voice_similarity_boost": 0.8,
+    "voice_style": 0.55,
+    "voice_speed": 1.05,
+    "voice_language": "hi"
+  },
+
+  "speakfirst": {
+    "value": 2,
+    "customMsg": "नमस्ते! मैं car dealership की तरफ़ से बोल रहा हूँ। एक छोटा सा सवाल था।"
+  },
+
+  "silence_wait": 6,
+  "silence_count": 2,
+  "initial_pause_outbound": 1,
+  "noise_cancellation": true,
+  "bgNoise": true,
+  "bgNoiseVolume": 0.15,
+
+  "voicemail_msg": true,
+  "voicemail_custom_msg": "नमस्ते, मैं car dealership से बोल रहा हूँ। गाड़ी से related जानकारी के लिए हम आपसे बाद में संपर्क करेंगे। धन्यवाद।",
+
+  "functions": [
+    {
+      "name": "end_call",
+      "description": "End the call politely",
+      "type": "end"
+    }
+  ],
+
+  "post_call_analysis_prompt": "Extract the following details and return JSON only:\n- interest_status (Yes / No / Maybe)\n- car_type\n- fuel_type\n- budget_range\n- buying_timeline\n- follow_up_required (true/false)\n- follow_up_time\n- customer_sentiment",
+
+  "postcallmodel": "o4-mini",
+  "isVersionActive": true
+}
